@@ -23,3 +23,7 @@ Or host it on your onw GitHub account
  * examples
   * otpauth URL - https://moebel-de.github.io/otp-authenticator-webapp/#otpauth://totp/john.doe?secret=N2SJSUOXCKQM5MAX7N7J3NBUQ4WTL66G&issuer=example.org
   * Secret only - https://moebel-de.github.io/otp-authenticator-webapp/#N2SJSUOXCKQM5MAX7N7J3NBUQ4WTL66G
+
+
+# Credits:
+We have forked out the project from [qoomon](https://github.com/qoomon) - thanks for working on this.
