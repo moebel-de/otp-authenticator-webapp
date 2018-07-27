@@ -6,11 +6,11 @@ cache:
     - node_modules
 before_install:
   - >-
-    openssl aes-256-cbc 
-    -K $encrypted_7977e5d7802f_key 
-    -iv $encrypted_7977e5d7802f_iv 
-    -in github_deploy_key.enc 
-    -out github_deploy_key 
+    openssl aes-256-cbc
+    -K $encrypted_5e7ef01803bd_key
+    -iv $encrypted_5e7ef01803bd_iv
+    -in github_deploy_key.enc
+    -out github_deploy_key
     -d
   - chmod 600 github_deploy_key
   - eval $(ssh-agent -s)
@@ -26,4 +26,3 @@ deploy:
   on:
     branch: master
     condition: $TRAVIS_REPO_SLUG = moebel-de/otp-authenticator-webapp
-
