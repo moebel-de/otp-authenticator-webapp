@@ -9,6 +9,15 @@ var TOTP = require('./totp');
 var ProgressBar = require('progressbar.js');
 var QRCode = require('qrcodejs2');
 
+function getCookie(name) {
+  var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+  if (match) return match[2];
+}
+
+function setCookie(name, value) {
+  document.cookie = name + "=" + value + "; path=/";
+}
+
 function buildOTPauthUrl(secret, account, issuer){
   return 'otpauth://totp/' + encodeURIComponent(account) + '?secret=' + encodeURIComponent(secret) + '&issuer=' + encodeURIComponent(issuer);
 }
@@ -155,16 +164,30 @@ function toggleOtpauthQr() {
   }
 }
 
+function toggleDarkMode() {
+  var darkStyleElement = document.getElementById('dark-style');
+  darkStyleElement.disabled = !darkStyleElement.disabled;
+  setCookie("otp-authenticator.darkStyle", !darkStyleElement.disabled);
+}
+
 ['click', 'tap'].forEach(function(event) {
   document.getElementById('button-otpauth-qr').addEventListener(event, function(e) {
-    var otpauthQrImageElement = document.getElementById('otpauth-qr');
-    var accountInputElement = document.getElementById('inputAccount');
-    var issuerInputElement = document.getElementById('inputIssuer');
     toggleOtpauthQr();
   }, false);
 });
 
+['click', 'tap'].forEach(function(event) {
+  document.getElementById('appname').addEventListener(event, function(e) {
+    toggleDarkMode();
+  }, false);
+});
+
 // ################  run  ##################
+
+var darkStyleCookie = getCookie("otp-authenticator.darkStyle");
+if (darkStyleCookie === "true") {
+  toggleDarkMode();
+}
 
 window.onhashchange = function(){
   var secret = window.location.hash.substr(1);
@@ -202,7 +225,7 @@ function refresh_totp() {
   }
 }
 
-}).call(this,{"version":"2.0.0-d40b9d042fdd62d4092e9f84c1b244032bf40043"})
+}).call(this,{"version":"2.0.0-195140f438c54b87c7963125ad4f9dae50f7f484"})
 },{"./totp":2,"progressbar.js":6,"qrcodejs2":11}],2:[function(require,module,exports){
 var jsSHA = require('jssha');
 
